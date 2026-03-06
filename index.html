@@ -188,48 +188,6 @@
     }
   </script>
 
-<script>
-(function() {
-
-  const btn = document.getElementById("telegramBtn");
-
-  btn.addEventListener("click", function(e) {
-
-    // Allow only real human clicks
-    if (!e.isTrusted) {
-      e.preventDefault();
-      return;
-    }
-
-    // Prevent double tracking on same device
-    if (localStorage.getItem("telegramTracked") === "true") {
-      return;
-    }
-
-    // Mark this device as tracked
-    localStorage.setItem("telegramTracked", "true");
-
-    // Unique event ID for Facebook
-    const eventId = "tg_" + Date.now();
-
-    // Track Lead event
-    if (typeof fbq !== "undefined") {
-      fbq('track', 'Subscribe', {}, { eventID: eventId });
-    }
-
-    // Delay Telegram redirect by 1 second so Facebook has time to register the event
-    setTimeout(function() {
-      window.open(btn.href, '_blank'); // open Telegram link in new tab
-    }, 1000); // 1 second delay
-
-    // Prevent default immediate redirect
-    e.preventDefault();
-
-  });
-
-})();
-</script>
-
 </body>
 
 </html>
